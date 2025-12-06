@@ -1,0 +1,42 @@
+$base-font: 16px;
+$base-background: #ffffff;
+$med-font-weight: 500;
+$normal-font-weight: 400;
+$text-2x1: 21px;
+
+:root {
+    font-size: $base-font;
+    border: rgba(0,0,0,0.1);
+}
+
+@layer base {
+    h1 {
+      font-size: $text-2x1;
+      font-weight: $med-font-weight;
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: $base-font;
+      font-weight: $normal-font-weight;
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: $base-font;
+      font-weight: $normal-font-weight;
+      line-height: 1.5;
+      letter-spacing: 1px;
+    }
+}
+
+html {
+    font-size: $base-font;
+    font-family: sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
