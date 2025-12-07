@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TestEntity } from './common/test.entity/test.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { join } from 'path';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([TestEntity]),
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

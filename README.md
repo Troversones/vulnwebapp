@@ -41,3 +41,21 @@ The app intentionally includes insecure patterns for educational purposes (do no
    cd frontend
    npm install
    npm run build
+
+# Comment feature for XSS testing
+
+## list comments (should return [ ] initially)
+   ```bash
+   curl -sS http://localhost:3000/api/comments
+   ```
+
+## create a comment
+   ```bash
+   curl -sS -X POST http://localhost:3000/api/comments
+   -H "Content-Type: application/json" \
+   -d '{"content":"<script>alert(1)</script>"}' 
+   ```
+## verify created comment
+   ```bash
+   curl -sS http://localhost:3000/api/comments | jq
+   ```
