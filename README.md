@@ -15,7 +15,7 @@ The app intentionally includes insecure patterns for educational purposes (do no
 - Minimal backend to persist demo data and serve the frontend
 
 ## Repository layout
-- `frontend/` — Angular source (run/build with `npm` / Angular CLI)
+- `frontend/` — Angular source (run/build with `npm` / Angular CLI `ng`)
 - `backend/` — NestJS backend (API + static server)
 - `Dockerfile` — Multi-stage build for containerized deployment
 
@@ -24,7 +24,7 @@ The app intentionally includes insecure patterns for educational purposes (do no
    - Open a terminal in `frontend`:
      ```powershell
      npm install
-     npm start
+     ng serve
      ```
    - Dev server runs on `http://localhost:4200` by default.
 
@@ -59,3 +59,16 @@ The app intentionally includes insecure patterns for educational purposes (do no
    ```bash
    curl -sS http://localhost:3000/api/comments | jq
    ```
+
+# Seeding database (docker)
+
+## Build docker image
+   ```powershell
+   docker build -t vuln-webapp:latest .
+   ```
+## Run docker container
+   ```powershell
+   docker run --rm -p 3000:3000 -e RESET_AND_SEED=true vuln-webapp:latest
+   ```
+we use this is so we seed pre existing database elements and pass the environment variable to the container
+   

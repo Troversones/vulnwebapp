@@ -1,1 +1,22 @@
-<p>xss works!</p>
+<h2>Stored XSS Demo</h2>
+
+<textarea
+  [(ngModel)]="newComment"
+  placeholder="Enter some HTML or JS..."
+  rows="4"
+  cols="60"
+></textarea>
+<br>
+
+<button (click)="submit()">Submit</button>
+
+<hr>
+
+<div *ngFor="let c of comments">
+  <div><small>{{ c.createdAt | date:'medium' }}</small></div>
+
+  <!-- container id is used to locate rendered HTML to run scripts -->
+  <div id="comment-{{c.id}}" [innerHTML]="c.safeContent"></div>
+
+  <hr>
+</div>
