@@ -6,6 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface Comment {
   id: number;
+  username:string;
   content: string;
   createdAt: string;
   safeContent?: SafeHtml;
@@ -21,6 +22,7 @@ interface Comment {
 export class XssComponent implements OnInit, AfterViewChecked {
   comments: Comment[] = [];
   newComment = '';
+  newUsername = '';
   private lastRenderedCommentIds = new Set<number>();
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
@@ -47,11 +49,14 @@ export class XssComponent implements OnInit, AfterViewChecked {
   }
 
   submit() {
-    if (!this.newComment.trim()) return;
+    if (!this.newComment.trim() || !this.newUsername.trim()) return;
 
-    this.http.post('/api/comments', { content: this.newComment })
-      .subscribe(() => {
+    this.http.post('/api/comments', {
+      username: this.newUsername,
+      content: this.newComment
+    }).subscribe(() => {
         this.newComment = '';
+        this.newUsername = '';
         this.loadComments();
       });
   }

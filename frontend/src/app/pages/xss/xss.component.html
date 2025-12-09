@@ -1,5 +1,11 @@
 <h2>Stored XSS Demo</h2>
 
+<input
+  [(ngModel)]="newUsername"
+  placeholder="Felhasználónév"
+  style="margin-bottom: 8px; width: 300px;"
+/>
+<br>
 <textarea
   [(ngModel)]="newComment"
   placeholder="Enter some HTML or JS..."
@@ -15,7 +21,8 @@
 <div *ngFor="let c of comments">
   <div><small>{{ c.createdAt | date:'medium' }}</small></div>
 
-  <!-- container id is used to locate rendered HTML to run scripts -->
+  <strong>{{ c.username }}</strong><br>
+
   <div id="comment-{{c.id}}" [innerHTML]="c.safeContent"></div>
 
   <hr>
