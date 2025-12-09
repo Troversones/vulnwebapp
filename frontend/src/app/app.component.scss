@@ -1,3 +1,9 @@
+$gray-medium: #374151;
+$app-background: #f9fafb;
+$white: #ffffff;
+$red: #dc2626;
+$hover-nav-button: #f3f4f6;
+
 * {
   margin: 0;
   padding: 0;
@@ -6,11 +12,11 @@
 
 .app {
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: $app-background;
 }
 
 .navbar {
-  background-color: #ffffff;
+  background-color: $white;
   border-bottom: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
@@ -41,7 +47,7 @@
   }
 
   .navbar-brand {
-    color: #dc2626;
+    color: $red;
     font-weight: 600;
   }
 
@@ -60,12 +66,12 @@
     background-color: transparent;
 
     &:hover {
-      background-color: #f3f4f6;
+      background-color: $hover-nav-button;
     }
 
     &.active {
-      background-color: #dc2626;
-      color: #ffffff;
+      background-color: $red;
+      color: $white;
     }
   }
 }

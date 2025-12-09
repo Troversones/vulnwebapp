@@ -1,3 +1,15 @@
+$red: #dc2626;
+$blue: #2563eb;
+$green: #16a34a;
+$gray-dark: #111827;
+$gray-medium: #374151;
+$gray-light: #4b5563;
+$yellow-light: #fefce8;
+$yellow-border: #facc15;
+$yellow-dark: #854d0e;
+$yellow-icon: #ca8a04;
+
+
 .home {
   display: flex;
   flex-direction: column;
@@ -11,17 +23,17 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
   h1 {
-    color: #dc2626;
+    color: $red;
     margin: 0;
   }
 
   h2 {
-    color: #111827;
+    color: $gray-dark;
     margin: 0 0 1rem 0;
   }
 
   h3 {
-    color: #111827;
+    color: $gray-dark;
     margin: 0 0 0.5rem 0;
   }
 
@@ -34,16 +46,9 @@
   }
 
   .card-text {
-    color: #374151;
+    color: $gray-medium;
     margin-bottom: 1rem;
   }
-
-  .card-header-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  display: block;
-  object-fit: contain;
-}
 }
 
 .icon {
@@ -52,15 +57,15 @@
   flex-shrink: 0;
 
   &-red {
-    color: #dc2626;
+    color: $red;
   }
 
   &-blue {
-    color: #2563eb;
+    color: $blue;
   }
 
   &-green {
-    color: #16a34a;
+    color: $green;
   }
 }
 
@@ -72,19 +77,19 @@
   gap: 0.75rem;
 
   &-warning {
-    background-color: #fefce8;
-    border-color: #facc15;
+    background-color: $yellow-light;
+    border-color: $yellow-border;
 
     p {
-      color: #854d0e;
+      color: $yellow-dark;
       margin: 0;
     }
   }
 
-  .alert-icon {
+  &-icon {
     width: 1.25rem;
     height: 1.25rem;
-    color: #ca8a04;
+    color: $yellow-icon;
     flex-shrink: 0;
     margin-top: 0.125rem;
   }
@@ -103,21 +108,21 @@
   display: flex;
   gap: 1rem;
 
-  .feature-icon {
+  &-icon {
     width: 1.5rem;
     height: 1.5rem;
     flex-shrink: 0;
   }
 
   p {
-    color: #4b5563;
+    color: $gray-light;
     margin: 0;
   }
 }
 
 .owasp-list {
   list-style-position: inside;
-  color: #374151;
+  color: $gray-medium;
 
   li {
     margin: 0.5rem 0;
@@ -126,7 +131,7 @@
 
 .feature-list {
   list-style-position: inside;
-  color: #374151;
+  color: $gray-medium;
   margin-top: 1rem;
 
   li {

@@ -1,81 +1,104 @@
 <div class="home">
-      <div class="card">
-        <div class="card-header">
-          <img src="../../../../public/shield.svg" class="" alt="" aria-hidden="true">
-          <h1>Web Application Security Vulnerabilities (PlaceHolder)</h1>
-        </div>
-        <p class="card-text">
-          This is an educational demonstration platform designed to help developers 
-          understand common web application vulnerabilities. Each section demonstrates 
-          a specific security flaw and explains how it can be exploited.
+  <div class="card">
+    <div class="card-header">
+      <lucide-icon
+        [img]="Shield"
+        color="#de1717"
+        class="icon-red"
+      ></lucide-icon>
+      <h1>Webalkalmazás-biztonsági Sérülékenységek (Bemutató)</h1>
+    </div>
+    <p class="card-text">
+      Ez az oktató webalkalmazás olyan sérülékenységeket mutat be, amelyek
+      gyakran megjelennek valós webes rendszerekben. A platform célja, hogy
+      fejlesztők, hallgatók és érdeklődők jobban megértsék a biztonsági hibák
+      működését, kockázatait és kihasználási módjait.
+    </p>
+    <div class="alert alert-warning">
+      <lucide-icon [img]="TriangleAlert" class="alert-icon"></lucide-icon>
+      <div>
+        <p>
+          <strong>Figyelem:</strong> Ez az alkalmazás szándékosan tartalmaz
+          biztonsági sérülékenységeket oktatási célból. A bemutatott mintákat és
+          technikákat SOHA nem szabad éles rendszerekben alkalmazni.
         </p>
-        <div class="alert alert-warning">
-          <div>
-            <p>
-              <strong>Warning:</strong> This application is intentionally vulnerable for 
-              educational purposes only. Never implement these patterns in production applications.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>What You'll Learn</h2>
-        <div class="grid">
-          <div class="feature">
-            <Code class="feature-icon icon-blue"></Code>
-            <div>
-              <h3>Cross-Site Scripting (XSS)</h3>
-              <p>
-                Learn how attackers can inject malicious scripts into web pages viewed 
-                by other users, including stored, reflected, and DOM-based XSS attacks.
-              </p>
-            </div>
-          </div>
-          
-          <div class="feature">
-            <div>
-              <h3>Prevention Techniques</h3>
-              <p>
-                Understand how to properly sanitize user input, implement Content Security 
-                Policy, and use security headers to protect your applications.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>OWASP Top 10 Web Application Security Risks</h2>
-        <p class="card-text">
-          This demo focuses on vulnerabilities from the OWASP Top 10, the industry-standard 
-          awareness document for web application security:
-        </p>
-        <ol class="owasp-list">
-          <li>Broken Access Control</li>
-          <li>Cryptographic Failures</li>
-          <li>Injection (including XSS)</li>
-          <li>Insecure Design</li>
-          <li>Security Misconfiguration</li>
-          <li>Vulnerable and Outdated Components</li>
-          <li>Identification and Authentication Failures</li>
-          <li>Software and Data Integrity Failures</li>
-          <li>Security Logging and Monitoring Failures</li>
-          <li>Server-Side Request Forgery (SSRF)</li>
-        </ol>
-      </div>
-
-      <div class="card">
-        <h2>Getting Started</h2>
-        <p class="card-text">
-          Navigate through the sections using the navbar above. Each vulnerability type 
-          includes:
-        </p>
-        <ul class="feature-list">
-          <li>Detailed explanation of the vulnerability</li>
-          <li>Code examples showing vulnerable patterns</li>
-          <li>Interactive demonstrations</li>
-          <li>Prevention and mitigation strategies</li>
-        </ul>
       </div>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>Mit fogsz megtanulni?</h2>
+    <div class="grid">
+      <div class="feature">
+        <lucide-icon [img]="Code" class="feature-icon icon-blue"></lucide-icon>
+        <div>
+          <h3>Stored Cross-Site Scripting (Tárolt XSS Támadás)</h3>
+          <p>
+            Megismerheted, hogyan működik a tárolt (Stored) Cross-Site Scripting
+            sérülékenység, amely lehetővé teszi, hogy a támadó rosszindulatú
+            JavaScript kódot juttasson az alkalmazás adatbázisába. A beágyazott
+            kód minden későbbi felhasználónál automatikusan lefut, amikor a
+            sérülékeny oldal betöltődik.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <lucide-icon [img]="Lock" class="feature-icon icon-green"></lucide-icon>
+        <div>
+          <h3>Védekezési technikák</h3>
+          <p>
+            Megismerheted, hogyan lehet megfelelően tisztítani a felhasználói
+            bemeneteket, hogyan működik a Content Security Policy (CSP), és
+            milyen fejlécek vagy architekturális megoldások csökkentik a
+            támadási felületet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>A demóban bemutatott webalkalmazás-sérülékenységek</h2>
+    <p class="card-text">
+      Az alkalmazás olyan gyakori és könnyen demonstrálható sérülékenységeket
+      mutat be, amelyek valós webes rendszerekben is előfordulnak. Minden modul
+      részletes magyarázatot, kihasználható példát és megelőzési javaslatokat
+      tartalmaz.
+    </p>
+    <ol class="owasp-list">
+      <li>
+        <strong>Tárolt (Stored) Cross-Site Scripting (XSS)</strong><br />
+      </li>
+      <li>
+        <strong>Hozzáférés-ellenőrzési hiba (IDOR - Insecure Direct ObjectReference)</strong><br />
+      </li>
+
+      <li><strong>Sérülékeny fájlfeltöltés</strong><br /></li>
+
+      <li>
+        <strong>Nem biztonságos konfigurációk</strong><br />
+      </li>
+
+      <li><strong>Input validáció hiánya</strong><br /></li>
+
+      <li>
+        <strong>Túlzottan részletes hibajelzések</strong><br />
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Első lépések</h2>
+    <p class="card-text">
+      A navigációs sáv segítségével válaszd ki a bemutatni kívánt sérülékenységi
+      típust. Minden modul tartalmaz:
+    </p>
+    <ul class="feature-list">
+      <li>részletes magyarázatot a sérülékenység működéséről</li>
+      <li>egyszerű, oktatási célú kódrészleteket</li>
+      <li>interaktív, kihasználható demót</li>
+      <li>megelőzési és védekezési stratégiákat</li>
+    </ul>
+  </div>
+</div>

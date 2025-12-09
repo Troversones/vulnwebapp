@@ -1,42 +1,63 @@
-$base-font: 16px;
-$base-background: #ffffff;
+$background: #ffffff;
+$foreground: oklch(0.145 0 0);
+$border: rgba(0, 0, 0, 0.1);
+
 $med-font-weight: 500;
 $normal-font-weight: 400;
+
+$base-font: 16px;
+$text-lg: 18px;
+$text-xl: 20px;
 $text-2x1: 21px;
-
-:root {
-    font-size: $base-font;
-    border: rgba(0,0,0,0.1);
-}
-
-@layer base {
-    h1 {
-      font-size: $text-2x1;
-      font-weight: $med-font-weight;
-      line-height: 1.5;
-    }
-
-    button {
-      font-size: $base-font;
-      font-weight: $normal-font-weight;
-      line-height: 1.5;
-    }
-
-    p {
-      font-size: $base-font;
-      font-weight: $normal-font-weight;
-      line-height: 1.5;
-      letter-spacing: 1px;
-    }
-}
 
 html {
     font-size: $base-font;
     font-family: sans-serif;
 }
 
+body {
+  background-color: $background;
+  color: $foreground;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  border-color: $border;
+  outline-color: rgba($border, 0.5);
+}
+
+h1 {
+  font-size: $text-2x1;
+  font-weight: $med-font-weight;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: $text-xl;
+  font-weight: $med-font-weight;
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: $text-lg;
+  font-weight: $med-font-weight;
+  line-height: 1.5;
+}
+
+button {
+  font-size: $base-font;
+  font-weight: $normal-font-weight;
+  line-height: 1.5;
+}
+
+p {
+  font-size: $base-font;
+  font-weight: $normal-font-weight;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
 }
