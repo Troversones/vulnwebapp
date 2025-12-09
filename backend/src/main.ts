@@ -36,13 +36,16 @@ async function bootstrap() {
       const commentsRepo = dataSource.getRepository(CommentsEntity);
       const seedComments = [
         {
+          username: 'Trevor',
           content: 'Welcome to the demo — this comment is seeded.',
         },
         {
-          content: 'This is very awesome comment I guess',
+          username: 'Alice',
+          content: 'This is a very awesome comment I guess.',
         },
         {
-          content: 'Try posting new comments — they will be dropped on restart.',
+          username: 'Gusztáv',
+          content: 'Füstölt kolbász',
         },
       ];
 

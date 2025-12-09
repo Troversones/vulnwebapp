@@ -11,8 +11,10 @@ export class CommentsController {
     }
 
     @Post()
-    async create(@Body('content') content: string) {
-        const comment = await this.service.create(content);
-        return comment;
+    async create(
+        @Body('username') username: string,
+        @Body('content') content: string,
+    ) {
+        return this.service.create(username, content);
     }
 }

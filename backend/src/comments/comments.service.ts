@@ -10,8 +10,8 @@ export class CommentsService {
         private readonly repo: Repository<CommentsEntity>,
     ) {}
 
-    async create(content: string): Promise<CommentsEntity> {
-        const c = this.repo.create({ content });
+    async create(username:string, content: string): Promise<CommentsEntity> {
+        const c = this.repo.create({ username ,content });
         return this.repo.save(c);
     }
 

@@ -8,6 +8,9 @@ export class CommentsEntity {
     @Column({ type: 'text' })
     content:string;
 
+    @Column({ type: 'text' })
+    username:string;
+
     @CreateDateColumn()
     createdAt:Date;
 
