@@ -1,0 +1,215 @@
+$xss-danger-color: #dc2626;
+$xss-danger-hover: #b91c1c;
+$xss-danger-bg: #fef2f2;
+$xss-danger-border: #f87171;
+$xss-danger-text: #991b1b;
+$xss-success-color: #16a34a;
+
+.stored-xss {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+    h1 {
+      color: $xss-danger-color;
+      margin: 0;
+    }
+
+    h2 {
+      color: #111827;
+      margin: 0 0 1rem 0;
+    }
+
+    h3 {
+      color: #111827;
+      margin: 0 0 1rem 0;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-text {
+    color: #374151;
+  }
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+
+    &.icon-red {
+      color: $xss-danger-color;
+    }
+  }
+
+  // How It Works Section
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #374151;
+  }
+
+  .step {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .step-number {
+    color: $xss-danger-color;
+    flex-shrink: 0;
+  }
+
+  // Alert Component
+  .alert {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-left: 4px solid;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+
+    &.alert-danger {
+      background-color: $xss-danger-bg;
+      border-color: $xss-danger-border;
+
+      p {
+        color: $xss-danger-text;
+        margin: 0;
+      }
+    }
+  }
+
+  .alert-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: $xss-danger-color;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  // Demo Section
+  .demo-description {
+    color: #374151;
+    margin-bottom: 1.5rem;
+  }
+
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.375rem;
+      font-family: inherit;
+      font-size: inherit;
+
+      &:focus {
+        outline: none;
+        border-color: $xss-danger-color;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      }
+    }
+
+    textarea {
+      min-height: 6rem;
+      resize: vertical;
+    }
+  }
+
+  .submit-button {
+    align-self: flex-start;
+    background-color: $xss-danger-color;
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $xss-danger-hover;
+    }
+  }
+
+  // Comments Section
+  .comments-section {
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  .comment {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  .comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .comment-username {
+    color: #111827;
+  }
+
+  .comment-timestamp {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+
+  .comment-content {
+    color: #374151;
+  }
+
+  // Prevention Section
+  .prevention-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .prevention-item {
+    display: flex;
+    gap: 0.75rem;
+    color: #374151;
+  }
+
+  .check-icon {
+    color: $xss-success-color;
+    flex-shrink: 0;
+  }
+}

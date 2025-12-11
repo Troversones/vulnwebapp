@@ -1,0 +1,27 @@
+.code-block {
+  margin: 1rem 0;
+}
+
+.code-block-title {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-bottom: none;
+}
+
+.code-block-content {
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.code-block-content pre {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.code-block-content pre code {
+  color: #111827;
+}

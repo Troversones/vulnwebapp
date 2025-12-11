@@ -53,11 +53,11 @@ The app intentionally includes insecure patterns for educational purposes (do no
    ```bash
    curl -sS -X POST http://localhost:3000/api/comments
    -H "Content-Type: application/json" \
-   -d '{"content":"<script>alert(1)</script>"}' 
+   -d '{"username":"a","content":"b"}'
    ```
 ## verify created comment
    ```bash
-   curl -sS http://localhost:3000/api/comments | jq
+   curl -sS http://localhost:3000/api/comments
    ```
 
 # Seeding database (docker)

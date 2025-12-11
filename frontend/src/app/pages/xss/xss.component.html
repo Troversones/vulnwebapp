@@ -1,29 +1,184 @@
-<h2>Stored XSS Demo</h2>
+<div class="stored-xss">
+  <div class="card">
+    <div class="card-header">
+      <lucide-icon [img]="Bug" class="icon icon-red"></lucide-icon>
+      <h1>Stored Cross-Site Scripting (XSS) Az egész oldal egy Template text, Majd átírom</h1>
+    </div>
+    <p class="card-text">
+      Stored XSS (also known as Persistent XSS) occurs when malicious scripts
+      are permanently stored on the target server, such as in a database,
+      message forum, comment field, or any other data storage. When other users
+      request the stored data, the malicious script is executed in their
+      browser.
+    </p>
+  </div>
 
-<input
-  [(ngModel)]="newUsername"
-  placeholder="Felhasználónév"
-  style="margin-bottom: 8px; width: 300px;"
-/>
-<br>
-<textarea
-  [(ngModel)]="newComment"
-  placeholder="Enter some HTML or JS..."
-  rows="4"
-  cols="60"
-></textarea>
-<br>
+  <!-- How It Works -->
+  <div class="card">
+    <h2>How Stored XSS Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1.</div>
+        <div>
+          <strong>Injection:</strong> An attacker submits malicious JavaScript
+          code through an input field (like a comment form).
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2.</div>
+        <div>
+          <strong>Storage:</strong> The application stores this malicious code
+          in its database without proper sanitization.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3.</div>
+        <div>
+          <strong>Execution:</strong> When other users view the page, the stored
+          malicious script is retrieved and executed in their browsers.
+        </div>
+      </div>
+    </div>
+  </div>
 
-<button (click)="submit()">Submit</button>
+  <!-- Vulnerable Code Example -->
+  <div class="card">
+    <h2>Vulnerable Code Example</h2>
+    <p class="card-text">
+      The following code is vulnerable because it directly renders user input as
+      HTML without sanitization:
+    </p>
+    <app-code-block title="vulnerable-component.js" [code]="vulnerableCode">
+    </app-code-block>
+  </div>
 
-<hr>
+  <!-- Attack Examples -->
+  <div class="card">
+    <h2>Example Attack Payloads</h2>
+    <p class="card-text">
+      Try these payloads in the demo below to see how XSS attacks work:
+    </p>
+    <app-code-block title="Xss-Payload.txt" [code]="xssRawCode">
+    </app-code-block>
+    <div class="alert alert-danger">
+      <lucide-icon [img]="TriangleAlert" class="alert-icon"></lucide-icon>
+      <div>
+        <p>
+          <strong>Note:</strong> In this demo, Angular automatically escapes
+          content by default, providing protection against XSS. In a real
+          vulnerable application without proper protections, these payloads
+          would execute malicious code.
+        </p>
+      </div>
+    </div>
+  </div>
 
-<div *ngFor="let c of comments">
-  <div><small>{{ c.createdAt | date:'medium' }}</small></div>
+  <!-- Interactive Demo (integrated with component) -->
+  <div class="card">
+    <h2>Interactive Demo: Vulnerable Comment  (Működik)</h2>
+    <p class="demo-description">
+      Try submitting a comment with malicious code. Notice how Angular protects
+      against XSS by default. In a truly vulnerable application, your script
+      would execute.
+    </p>
 
-  <strong>{{ c.username }}</strong><br>
+    <form class="comment-form" (ngSubmit)="submit()" #commentForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          placeholder="Enter your username"
+          [(ngModel)]="newUsername"
+          required
+          style="width: 100%"
+        />
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea
+          id="comment"
+          name="comment"
+          placeholder="Enter your comment (try an XSS payload)"
+          [(ngModel)]="newComment"
+          rows="4"
+          required
+          style="width: 100%"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="!commentForm.form.valid"
+      >
+        Post Comment
+      </button>
+    </form>
 
-  <div id="comment-{{c.id}}" [innerHTML]="c.safeContent"></div>
+    <!-- Comments Display - bound to the component's `comments` -->
+    <div class="comments-section">
+      <h3>
+        Comments (<span id="commentCount">{{ comments.length }}</span
+        >)
+      </h3>
+      <div class="comments-list" id="commentsList">
+        <div class="comment" *ngFor="let c of comments">
+          <div class="comment-meta">
+            <span class="comment-username">{{ c.username }}</span>
+            <span class="comment-timestamp">{{
+              c.createdAt | date : "short"
+            }}</span>
+          </div>
+          <div
+            class="comment-content"
+            id="comment-{{ c.id }}"
+            [innerHTML]="c.safeContent"
+          ></div>
+        </div>
+        <div *ngIf="comments.length === 0" class="comment empty">
+          <div class="comment-content">
+            No comments yet. Be the first to post!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <hr>
+  <!-- Prevention -->
+  <div class="card">
+    <h2>How to Prevent Stored XSS</h2>
+    <div class="prevention-list">
+      <div class="prevention-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <strong>Input Validation:</strong> Validate and sanitize all user
+          input on the server side.
+        </div>
+      </div>
+      <div class="prevention-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <strong>Output Encoding:</strong> Encode data when displaying it to
+          users. Use textContent instead of innerHTML.
+        </div>
+      </div>
+      <div class="prevention-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <strong>Content Security Policy:</strong> Implement CSP headers to
+          restrict which scripts can execute.
+        </div>
+      </div>
+      <div class="prevention-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <strong>Use Security Libraries:</strong> Use libraries like DOMPurify
+          to sanitize HTML.
+        </div>
+      </div>
+    </div>
+    <app-code-block title="Safe-Component.ts" [code]="secureCode">
+    </app-code-block>
+  </div>
 </div>

@@ -3,6 +3,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { LucideAngularModule, Bug, TriangleAlert } from 'lucide-angular';
+import { CodeblockComponent } from '../../shared/codeblock/codeblock.component';
 
 interface Comment {
   id: number;
@@ -15,11 +17,13 @@ interface Comment {
 @Component({
   selector: 'app-xss',
   standalone: true,
-  imports: [CommonModule, FormsModule, DatePipe],
+  imports: [CommonModule, FormsModule, DatePipe, LucideAngularModule, CodeblockComponent],
   templateUrl: './xss.component.html',
-  styleUrl: './xss.component.scss'
+  styleUrls: ['./xss.component.scss']
 })
 export class XssComponent implements OnInit, AfterViewChecked {
+  readonly Bug = Bug;
+  readonly TriangleAlert = TriangleAlert;
   comments: Comment[] = [];
   newComment = '';
   newUsername = '';
@@ -90,4 +94,31 @@ export class XssComponent implements OnInit, AfterViewChecked {
       this.lastRenderedCommentIds.add(c.id);
     }
   }
+
+
+  vulnerableCode = `// VULNERABLE CODE - DO NOT USE IN PRODUCTION
+
+function displayComment(comment) {
+    const commentDiv = document.createElement('div');
+    // Dangerous: Directly inserting user input as HTML
+    commentDiv.innerHTML = comment.content;
+    commentsContainer.appendChild(commentDiv);
+}`;
+
+  xssRawCode = `<img src=x onerror="alert('XSS Attack!')">
+<script>alert('Stored XSS')</script>
+<img src=x onerror="document.body.innerHTML='Asd!'">`;
+
+  secureCode = `// SAFE CODE - Use this approach instead
+function displayComment(comment) {
+  const commentDiv = document.createElement('div');
+  // Safe: Using textContent instead of innerHTML
+  commentDiv.textContent = comment.content;
+  commentsContainer.appendChild(commentDiv);
+}
+
+// Or sanitize HTML with a library like DOMPurify
+import DOMPurify from 'dompurify';
+const clean = DOMPurify.sanitize(userInput);`;
+
 }

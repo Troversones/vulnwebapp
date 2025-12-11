@@ -1,0 +1,6 @@
+<div class="code-block">
+  <div class="code-block-title" *ngIf="title">{{ title }}</div>
+  <div class="code-block-content">
+    <pre><code [innerText]="code || ''"></code></pre>
+  </div>
+</div>
