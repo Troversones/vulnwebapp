@@ -40,7 +40,14 @@ The app intentionally includes insecure patterns for educational purposes (do no
    ```powershell
    cd frontend
    npm install
-   npm run build
+   ng build
+
+4. (Optional) New dev mode via new optional parameter (:seed), that seeds some database records if selected (dev):
+   ```powershell
+   cd backend
+   npm run start:dev:seed
+   ```
+      ***This does also dumps the previous database file, so you can start with a new clean database and don't have to manually delete the .sqlite file every time***
 
 # Comment feature for XSS testing
 
