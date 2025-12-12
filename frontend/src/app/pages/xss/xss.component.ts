@@ -97,28 +97,73 @@ export class XssComponent implements OnInit, AfterViewChecked {
 
 
   vulnerableCode = `// VULNERABLE CODE - DO NOT USE IN PRODUCTION
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-function displayComment(comment) {
-    const commentDiv = document.createElement('div');
-    // Dangerous: Directly inserting user input as HTML
-    commentDiv.innerHTML = comment.content;
-    commentsContainer.appendChild(commentDiv);
-}`;
-
-  xssRawCode = `<img src=x onerror="alert('XSS Attack!')">
-<script>alert('Stored XSS')</script>
-<img src=x onerror="document.body.innerHTML='Asd!'">`;
-
-  secureCode = `// SAFE CODE - Use this approach instead
-function displayComment(comment) {
-  const commentDiv = document.createElement('div');
-  // Safe: Using textContent instead of innerHTML
-  commentDiv.textContent = comment.content;
-  commentsContainer.appendChild(commentDiv);
+interface Comment {
+  id: number;
+  username: string;
+  content: string;     // <-- ez a mező tartalmazza a nyers HTML-t / scriptet
+  createdAt: string;
 }
 
-// Or sanitize HTML with a library like DOMPurify
+@Component({
+  selector: 'app-xss-demo',
+  templateUrl: './xss-demo.component.html'
+})
+export class XssDemoComponent implements OnInit {
+
+  comments: Comment[] = [];
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    // sérülékeny: a tartalmat minden tisztítás nélkül betöltjük
+    this.http.get<Comment[]>('/api/comments')
+      .subscribe(data => this.comments = data);
+  }
+}`;
+
+  xssRawCode = `<img src=x onerror="alert('XSS')">
+<script>alert('Try me')</script>
+<img src=x onerror="document.body.innerHTML='if you dare!'">`;
+
+  secureCode = `// SAFE CODE - Use this approach instead
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import DOMPurify from 'dompurify';
-const clean = DOMPurify.sanitize(userInput);`;
+
+interface Comment {
+  id: number;
+  username: string;
+  content: string;
+  createdAt: string;
+  safeContent?: SafeHtml;
+}
+
+@Component({
+  selector: 'app-xss-demo',
+  templateUrl: './xss-demo.component.html'
+})
+export class XssDemoComponent implements OnInit {
+
+  comments: Comment[] = [];
+
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
+
+  ngOnInit() {
+    // Safe: Sanitize content before displaying using DOMPurify
+    this.http.get<Comment[]>('/api/comments')
+      .subscribe(data => {
+        this.comments = data.map(comment => ({
+          ...comment,
+          safeContent: this.sanitizer.bypassSecurityTrustHtml(
+            DOMPurify.sanitize(comment.content)
+          )
+        }));
+      });
+  }
+}`;
 
 }

@@ -2,61 +2,100 @@
   <div class="card">
     <div class="card-header">
       <lucide-icon [img]="Bug" class="icon icon-red"></lucide-icon>
-      <h1>Stored Cross-Site Scripting (XSS) Az egész oldal egy Template text, Majd átírom</h1>
+      <h1>Tárolt Cross-Site Scripting (Stored XSS)</h1>
     </div>
     <p class="card-text">
-      Stored XSS (also known as Persistent XSS) occurs when malicious scripts
-      are permanently stored on the target server, such as in a database,
-      message forum, comment field, or any other data storage. When other users
-      request the stored data, the malicious script is executed in their
-      browser.
+      A Stored XSS (más néven Persistent XSS) akkor fordul elő, amikor a
+      rosszindulatú script tartósan eltárolódik a cél szerveren <br />
+      — például egy adatbázisban, message forum-ban, comment field-ben vagy
+      bármilyen más adattárolóban. <br />
+      Amikor más felhasználók lekérik ezt a tárolt adatot, a rosszindulatú
+      script lefut a böngészőjükben. Ez lehetővé teszi a támadók számára, hogy
+      érzékeny információkat lopjanak el, session cookie-kat szerezzenek meg,
+      vagy akár teljesen átvegyék az áldozat fiókját.
+    </p>
+    <p><br>
+      Erről bővebben:
+      <a
+        href="https://portswigger.net/web-security/cross-site-scripting/stored"
+        target="_blank"
+        >Portswigger Stored XSS</a
+      >
     </p>
   </div>
 
   <!-- How It Works -->
   <div class="card">
-    <h2>How Stored XSS Works</h2>
+    <h2>Hogyan működik az XSS?</h2>
     <div class="steps">
       <div class="step">
         <div class="step-number">1.</div>
         <div>
-          <strong>Injection:</strong> An attacker submits malicious JavaScript
-          code through an input field (like a comment form).
+          <strong>Injektálás:</strong> A támadó rosszindulatú JavaScript kódot
+          küld be egy input mezőn keresztül (például egy comment form
+          segítségével).
         </div>
       </div>
       <div class="step">
         <div class="step-number">2.</div>
         <div>
-          <strong>Storage:</strong> The application stores this malicious code
-          in its database without proper sanitization.
+          <strong>Tárolás:</strong> Az alkalmazás elmenti ezt a rosszindulatú
+          kódot az adatbázisába, megfelelő input sanitization (beviteli mezők
+          tisztítása) nélkül.
         </div>
       </div>
       <div class="step">
         <div class="step-number">3.</div>
         <div>
-          <strong>Execution:</strong> When other users view the page, the stored
-          malicious script is retrieved and executed in their browsers.
+          <strong>Betöltés:</strong> Amikor egy másik felhasználó megtekinti az
+          érintett oldalt, az alkalmazás lekéri a tárolt adatokat az
+          adatbázisból, és beilleszti azokat az oldal tartalmába.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">4.</div>
+        <div>
+          <strong>Végrehajtás:</strong> Az áldozat böngészője megkapja az
+          oldalt, a scriptet pedig a megbízható site részének tekinti, ezért
+          lefuttatja azt — ezzel a támadónak hozzáférést biztosít a user
+          session-jéhez.
         </div>
       </div>
     </div>
+    <p>
+      Erről bővebben:
+      <a
+        href="https://portswigger.net/web-security/cross-site-scripting#how-does-xss-work"
+        target="_blank"
+        >Portswigger XSS</a
+      >
+    </p>
   </div>
 
   <!-- Vulnerable Code Example -->
   <div class="card">
-    <h2>Vulnerable Code Example</h2>
+    <h2>Sérülékeny kód példa</h2>
     <p class="card-text">
-      The following code is vulnerable because it directly renders user input as
-      HTML without sanitization:
+      A következő példa egy egyszerű Angular komponenst mutat be, amely
+      sérülékeny a Stored XSS támadásokkal szemben. A `comment.content` mező
+      nincs megfelelően tisztítva vagy kódolva, így a rosszindulatú JavaScript
+      kód végrehajtódhat, amikor a kommenteket megjelenítjük.
+      <br><br>
+      Több információkért az Angular biztonsági útmutatójában:
+      <a
+        href="https://angular.dev/best-practices/security#angulars-cross-site-scripting-security-model"
+        target="_blank"
+        >Angular XSS Guide</a>
     </p>
-    <app-code-block title="vulnerable-component.js" [code]="vulnerableCode">
+    <app-code-block title="vulnerable-component.ts" [code]="vulnerableCode">
     </app-code-block>
   </div>
 
   <!-- Attack Examples -->
   <div class="card">
-    <h2>Example Attack Payloads</h2>
+    <h2>Példa támadás kódja</h2>
     <p class="card-text">
-      Try these payloads in the demo below to see how XSS attacks work:
+      Próbáld ki a következő XSS payloadokat a sérülékeny komment űrlapon:
     </p>
     <app-code-block title="Xss-Payload.txt" [code]="xssRawCode">
     </app-code-block>
@@ -64,10 +103,10 @@
       <lucide-icon [img]="TriangleAlert" class="alert-icon"></lucide-icon>
       <div>
         <p>
-          <strong>Note:</strong> In this demo, Angular automatically escapes
-          content by default, providing protection against XSS. In a real
-          vulnerable application without proper protections, these payloads
-          would execute malicious code.
+          <strong>Megjegyzés:</strong> Ebben a demóban az Angular beépített
+          biztonsági mechanizmusai miatt a kód nem futna le alap helyzetben, de
+          az alábbi komment szekcióban bemutatjuk, hogyan nézne ki egy tényleg
+          sebezhető alkalmazás.
         </p>
       </div>
     </div>
@@ -75,32 +114,33 @@
 
   <!-- Interactive Demo (integrated with component) -->
   <div class="card">
-    <h2>Interactive Demo: Vulnerable Comment  (Működik)</h2>
+    <h2>interaktív Demo: Sérülékeny komment</h2>
     <p class="demo-description">
-      Try submitting a comment with malicious code. Notice how Angular protects
-      against XSS by default. In a truly vulnerable application, your script
-      would execute.
+      Próbáld ki magad! Írj be egy kommentet a lenti űrlapon, és nézd meg,
+      hogyan jelenik meg az oldal alján. Próbálj meg XSS payloadokat is
+      beilleszteni a komment mezőbe, és figyeld meg a hatást. (referenciaként
+      ott vannak a fentebbi példák)
     </p>
 
     <form class="comment-form" (ngSubmit)="submit()" #commentForm="ngForm">
       <div class="form-group">
-        <label for="username">Username:</label>
+        <label for="username">felhasználónév:</label>
         <input
           id="username"
           type="text"
           name="username"
-          placeholder="Enter your username"
+          placeholder="Írj be egy felhasználónevet"
           [(ngModel)]="newUsername"
           required
           style="width: 100%"
         />
       </div>
       <div class="form-group">
-        <label for="comment">Comment:</label>
+        <label for="comment">komment:</label>
         <textarea
           id="comment"
           name="comment"
-          placeholder="Enter your comment (try an XSS payload)"
+          placeholder="Vigyél fel egy xss payload-ot vagy bármi mást!"
           [(ngModel)]="newComment"
           rows="4"
           required
@@ -112,14 +152,14 @@
         class="submit-button"
         [disabled]="!commentForm.form.valid"
       >
-        Post Comment
+        Komment beküldése
       </button>
     </form>
 
     <!-- Comments Display - bound to the component's `comments` -->
     <div class="comments-section">
       <h3>
-        Comments (<span id="commentCount">{{ comments.length }}</span
+        Kommentek (<span id="commentCount">{{ comments.length }}</span
         >)
       </h3>
       <div class="comments-list" id="commentsList">
@@ -138,7 +178,7 @@
         </div>
         <div *ngIf="comments.length === 0" class="comment empty">
           <div class="comment-content">
-            No comments yet. Be the first to post!
+            Még nincsenek kommentek. Légy te az első!
           </div>
         </div>
       </div>
@@ -147,38 +187,62 @@
 
   <!-- Prevention -->
   <div class="card">
-    <h2>How to Prevent Stored XSS</h2>
+    <h2>Hogyan előzzük meg az XSS-t?</h2>
     <div class="prevention-list">
       <div class="prevention-item">
         <div class="check-icon">✓</div>
         <div>
-          <strong>Input Validation:</strong> Validate and sanitize all user
-          input on the server side.
+          <strong>
+            <a
+              href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+              target="_blank"
+              >Input Validation:</a
+            ></strong
+          >
+          Mindig ellenőrizd és tisztítsd a felhasználói bemeneteket a szerveren.
         </div>
       </div>
       <div class="prevention-item">
         <div class="check-icon">✓</div>
         <div>
-          <strong>Output Encoding:</strong> Encode data when displaying it to
-          users. Use textContent instead of innerHTML.
+          <strong
+            ><a
+              href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#output-encoding"
+              target="_blank"
+              >Output encoding:</a
+            ></strong
+          >
+          Kódold le a kimenetet, mielőtt megjeleníted a böngészőben, különösen
+          HTML, JavaScript és URL kontextusokban.
         </div>
       </div>
       <div class="prevention-item">
         <div class="check-icon">✓</div>
         <div>
-          <strong>Content Security Policy:</strong> Implement CSP headers to
-          restrict which scripts can execute.
+          <strong>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP"
+              target="_blank"
+              >Content Security Policy:</a
+            ></strong
+          >
+          Implementálj CSP fejléceket a böngésző számára, hogy korlátozd a
+          végrehajtható forrásokat.
         </div>
       </div>
       <div class="prevention-item">
         <div class="check-icon">✓</div>
         <div>
-          <strong>Use Security Libraries:</strong> Use libraries like DOMPurify
-          to sanitize HTML.
+          <strong>Használj Security Library-ket:</strong> Használj jól
+          karbantartott könyvtárakat és framework-öket, amelyek beépített
+          biztonsági funkciókat kínálnak.<br />
+          Pl: <strong><a href="https://www.npmjs.com/package/dompurify" target="_blank"
+            > DOMPurify
+          </a></strong>
         </div>
       </div>
+      <app-code-block title="Safe-Component.ts" [code]="secureCode">
+      </app-code-block>
     </div>
-    <app-code-block title="Safe-Component.ts" [code]="secureCode">
-    </app-code-block>
   </div>
 </div>
